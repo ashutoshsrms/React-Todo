@@ -1,12 +1,11 @@
 import React from "react";
 import "./App.css";
 
-
 class App extends React.Component{
   constructor(){
     super()
     this.state={
-      newItem:"test",
+      newItem:"",
       list:[]
     }
   }
@@ -28,6 +27,13 @@ class App extends React.Component{
       })
     }
   }
+  
+  deleteItem(id){
+    const list = [...this.state.list];
+    const updatedList = list.filter(item => item.id !== id)
+    this.setState({list:updatedList})
+  }
+
 
   updateInput(input){
     this.setState({
@@ -55,17 +61,12 @@ class App extends React.Component{
 
           <div className="list">
             <ul>
-              {/* <li>
-                <input type="checkbox" name="" id="" />
-                 Lern Ract
-                 <button className="btn">Delete</button>
-              </li> */}
               {this.state.list.map(item=>{
                 return(
                   <li>
                     <input type="checkbox" name="" id=""/>
                     {item.value}
-                    <button className="btn">Delete</button>
+                    <button className="btn" onClick={()=>this.deleteItem(item.id)}>Delete</button>
                   </li>
                 )
               })}
